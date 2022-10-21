@@ -1,24 +1,63 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##　usersテーブル
 
-Things you may want to cover:
+| Column               | Type       | Options                        |
+| ------               | ---------- | ------------------------------ |
+| nickname             | string     | null: false,                   |
+| email                | string     | null: false,                   |
+| password             | string     | null: false                    |
+| name_kan             | string     | null: false                    |
+| name_kata            | string     | null: false                    |
+| birth_date           | string     | null: false
 
-* Ruby version
 
-* System dependencies
+### Association
 
-* Configuration
+has_many :history
+has_many :items
 
-* Database creation
 
-* Database initialization
+##　itemsテーブル
 
-* How to run the test suite
+| Column               | Type       | Options                        |
+| ------               | ---------- | ------------------------------ |
+| user                 | references | null: false, foreign_key: true |
+| item_name            | text       | null: false,                   |
+| item_discribe        | text       | null: false                    |
+| item_state           | string     | null: false                    |
+| item_price           | string     | null: false                    |
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### Association
 
-* ...
+belong_to :user
+has_one   :history
+
+
+##　sendsテーブル
+
+| Column               | Type       | Options                        |
+| ------               | ---------- | ------------------------------ |
+| user                 | references | null: false, foreign_key: true |
+| post_code            | string     | null: false,                   |
+| prefecture           | string     | null: false                    |
+| city                 | string     | null: false                    |
+| address              | string     | null: false                    |
+| building             | string     | null: false                    |
+| phone_number         | string     | null: false                    |
+
+### Association
+belong_to :history
+
+
+##　historiesテーブル
+
+| Column               | Type       | Options                        |
+| ------               | ---------- | ------------------------------ |
+| postage              | string     | null: false                    |
+| sender               | string     | null: false                    |
+| day                  | string     | null: false                    |
+
+### Association
+has_one :send
