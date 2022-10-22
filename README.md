@@ -64,7 +64,7 @@ belong_to :history
 | Column               | Type       | Options                        |
 | ------               | ---------- | ------------------------------ |
 | user                 | references | null: false, foreign_key: true |
-| item_name            | references | null: false, foreign_key: true |
+| item                 | references | null: false, foreign_key: true |
 
 ### Association
 belong_to :item
