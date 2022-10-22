@@ -26,7 +26,6 @@ has_many :items
 | Column               | Type       | Options                        |
 | ------               | ---------- | ------------------------------ |
 | user                 | references | null: false,  foreign_key: true|
-| history              | references | null: false, foreign_key: true|
 | item_name            | string     | null: false                    |
 | item_discribe        | text       | null: false                    |
 | state_id             | integer    | null: false                    |
@@ -39,7 +38,7 @@ has_many :items
 
 ### Association
 
-belong_to :user
+belongs_to :user
 has_one   :history
 
 
@@ -48,6 +47,7 @@ has_one   :history
 
 | Column               | Type       | Options                        |
 | ------               | ---------- | ------------------------------ |
+| history              | references | null: false, foreign_key: true |
 | post_code            | string     | null: false                    |
 | ship_id              | integer    | null: false                    |
 | city                 | string     | null: false                    |
@@ -56,7 +56,7 @@ has_one   :history
 | phone_number         | string     | null: false                    |
 
 ### Association
-belong_to :history
+belongs_to :history
 
 
 
@@ -68,6 +68,6 @@ belong_to :history
 | item                 | references | null: false, foreign_key: true |
 
 ### Association
-belong_to :item
+belongs_to :item
 has_one   :area
-belong_to :user
+belongs_to :user
