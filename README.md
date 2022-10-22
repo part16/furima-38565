@@ -5,8 +5,8 @@
 | Column               | Type       | Options                        |
 | ------               | ---------- | ------------------------------ |
 | nickname             | string     | null: false                    |
-| email                | references | null: false,  unique: true     |
-| encrypted_password    | string     | null: false                   |
+| email                | string     | null: false,  unique: true     |
+| encrypted_password   | string     | null: false                   |
 | name_sei             | string     | null: false                    |
 | name_mei             | string     | null: false                    |
 | name_furi            | string     | null: false                    |
@@ -26,13 +26,14 @@ has_many :items
 | Column               | Type       | Options                        |
 | ------               | ---------- | ------------------------------ |
 | user                 | references | null: false,  foreign_key: true|
+| history              | references | null: false, foreign_key: true|
 | item_name            | string     | null: false                    |
 | item_discribe        | text       | null: false                    |
 | state_id             | integer    | null: false                    |
 | category_id          | integer    | null: false                    |
 | postage_id           | integer    | null: false                    |
 | ship_id              | integer    | null: false                    |
-| day_id               | integer    | null: false                    |
+| scheduled_day_id     | integer    | null: false                    |
 | item_price           | integer    | null: false                    |
 
 
