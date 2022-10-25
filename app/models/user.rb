@@ -7,8 +7,8 @@ class User < ApplicationRecord
          validates :nickname,   presence: true 
          validates :birth_date, presence: true 
 
-         validates :name_sei, presence: true, format: { with: /\A[一-龥ぁ-ん]/ , message: 'is invalid. Input full-width characters'}  
-         validates :name_mei, presence: true, format: { with: /\A[一-龥ぁ-ん]/ , message: 'is invalid. Input full-width characters'}
+         validates :name_sei, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ , message: 'is invalid. Input full-width characters'}  
+         validates :name_mei, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ , message: 'is invalid. Input full-width characters'}
   
 
          validates :name_furi, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ , message: 'is invalid. Input full-width katakana characters'}  
