@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   validates :item_name,         presence: true 
   validates :item_discribe,     presence: true 
-  validates :item_price,        presence: true ,numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
+  validates :item_price,        presence: true ,numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
                                                 format: { with: /\A[0-9]+\z/ }
   validates :image,             presence: true
   has_one_attached :image
