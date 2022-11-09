@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!,except: [:index,:show]
   before_action :contributor_confirmation, only: [:edit,:update,:destroy]
   before_action :set_item, only: [:show,:edit,:update,:destroy]
-
+  before_action :sellout_check, only: :edit
   def edit 
     
   end
@@ -16,6 +16,7 @@ class ItemsController < ApplicationController
   end
 
   def show  
+    
   end
 
   def create
@@ -55,5 +56,9 @@ class ItemsController < ApplicationController
   def contributor_confirmation
     redirect_to root_path unless current_user == Item.find(params[:id]).user
   end 
-
-end
+  def sellout_check
+    if Item.find(params[:id]).history.present?
+      redirect_to root_path
+    end
+  end
+ end
