@@ -1,6 +1,6 @@
 class HistoriesController < ApplicationController
   before_action :purchase_check, only: :index
-
+  before_action :sigh_in_check, only: :index
 
   def index
     @history_area = HistoryArea.new
@@ -30,6 +30,11 @@ class HistoriesController < ApplicationController
   def purchase_check
     if Item.find(params[:item_id]).history.present?
       redirect_to root_path
+    end
+  end
+  def sigh_in_check
+    unless user_signed_in?
+      redirect_to new_user_session_path
     end
   end
 end
