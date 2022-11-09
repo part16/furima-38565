@@ -13,9 +13,23 @@ RSpec.describe HistoryArea, type: :model do
       it '項目が全て埋まっていれば購入できる' do
        expect(@history_area).to be_valid
       end
+      it '建物名は空でも登録できる' do
+        @history_area.building = ''
+        expect(@history_area).to be_valid
+      end
     end
     
     context '内容に問題がある場合' do
+      it "userが紐づいていないと購入できない" do
+        @history_area.user_id = nil
+        @history_area.valid?
+        expect(@history_area.errors.full_messages).to include "User can't be blank"
+      end
+      it "itemが紐づいていないと購入できない" do
+        @history_area.item_id = nil
+        @history_area.valid?
+        expect(@history_area.errors.full_messages).to include "Item can't be blank"
+      end
       it "tokenが空では登録できないこと" do
         @history_area.token = nil
         @history_area.valid?
@@ -27,7 +41,7 @@ RSpec.describe HistoryArea, type: :model do
         expect(@history_area.errors.full_messages).to include "Post code can't be blank"  
       end
       it 'post_codeが3桁-4桁の形式でないと購入できないこと' do
-        @history_area.post_code = 'aasds'
+        @history_area.post_code = '1234567'
         @history_area.valid?
         expect(@history_area.errors.full_messages).to include "Post code is invalid"
       end
@@ -56,10 +70,15 @@ RSpec.describe HistoryArea, type: :model do
         @history_area.valid?
         expect(@history_area.errors.full_messages).to include "Phone number is invalid"
       end
-      it 'phone_numberは10、11桁でないと購入できないこと' do
+      it 'phone_numberが9桁以下だと購入できないこと' do
         @history_area.phone_number = '1234567'
         @history_area.valid?
         expect(@history_area.errors.full_messages).to include "Phone number is too short (minimum is 10 characters)"
+      end
+      it 'phone_numberが12桁以上だと購入できないこと' do
+        @history_area.phone_number = '1234567899999'
+        @history_area.valid?
+        expect(@history_area.errors.full_messages).to include "Phone number is too long (maximum is 11 characters)"
       end
     end
   end

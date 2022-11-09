@@ -1,15 +1,14 @@
 class HistoriesController < ApplicationController
   before_action :purchase_check, only: :index
-  before_action :sigh_in_check, only: :index
+  before_action :set_history, only: [:index, :create]
+  before_action :authenticate_user!, only: :index
 
   def index
     @history_area = HistoryArea.new
-    @item = Item.find(params[:item_id])
   end
 
   def create
     @history_area = HistoryArea.new(history_params)
-    @item = Item.find(params[:item_id])
     if @history_area.valid?
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
       Payjp::Charge.create(
@@ -32,9 +31,7 @@ class HistoriesController < ApplicationController
       redirect_to root_path
     end
   end
-  def sigh_in_check
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
+  def set_history
+    @item = Item.find(params[:item_id])
   end
 end
