@@ -2,7 +2,7 @@ class HistoriesController < ApplicationController
   before_action :purchase_check, only: :index
   before_action :set_history, only: [:index, :create]
   before_action :authenticate_user!, only: :index
-
+  before_action :user_check, only: :index
   def index
     @history_area = HistoryArea.new
   end
@@ -28,10 +28,13 @@ class HistoriesController < ApplicationController
   end
   def purchase_check
     if Item.find(params[:item_id]).history.present?
-      redirect_to root_path
+       redirect_to root_path
     end
   end
   def set_history
     @item = Item.find(params[:item_id])
+  end
+  def user_check
+    redirect_to root_path if current_user == @item.user
   end
 end
