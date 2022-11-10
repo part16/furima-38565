@@ -1,4 +1,5 @@
 class HistoriesController < ApplicationController
+  before_action :root_to_sign_in, only: :index
   before_action :purchase_check, only: :index
   before_action :set_history, only: [:index, :create]
   before_action :authenticate_user!, only: :index
@@ -23,8 +24,14 @@ class HistoriesController < ApplicationController
     end
   end
 
+  private
+
+ 
   def history_params
     params.require(:history_area).permit(:post_code, :ship_id, :city, :address, :building, :phone_number ).merge(user_id: current_user.id,item_id: params[:item_id],token: params[:token])
+  end
+  def root_to_sign_in
+    redirect_to new_user_session_path unless user_signed_in?
   end
   def purchase_check
     if Item.find(params[:item_id]).history.present?
@@ -37,4 +44,6 @@ class HistoriesController < ApplicationController
   def user_check
     redirect_to root_path if current_user == @item.user
   end
+ 
+
 end
